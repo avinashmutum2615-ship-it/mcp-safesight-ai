@@ -2,6 +2,8 @@ import { z } from "zod";
 import { searchDoctors } from "../services/doctorService.js";
 import { errorResponse } from "../utils/errorResponse.js";
 import { formatAppointment } from "../utils/formatAppointment.js";
+import { formatSlots } from "../utils/formatSlots.js";
+import { successResponse } from "../utils/successResponse.js";
 import {
     getAvailableSlots,
     bookAppointment,
@@ -75,15 +77,13 @@ export function registerAppointmentTools(server) {
                     date
                 );
 
-                return {
-                    content: [
-                        {
-                            type: "text",
-                            text: JSON.stringify(slotResponse, null, 2),
-                        },
-                    ],
-                };
-
+                return successResponse(
+                    formatSlots(
+                        slotResponse,
+                        doctor.name,
+                        date
+                    )
+                );
             } catch (error) {
 
                return errorResponse(error);
