@@ -222,10 +222,10 @@ export function registerAppointmentTools(server) {
 
                 });
 
-               const appointment = response.data;
+               const appointment = response.appointment;
 
                 return successResponse(
-                    formatAppointment(response.data, "booked")
+                 formatAppointment(appointment, "booked")
                 );
             } catch (error) {
 
